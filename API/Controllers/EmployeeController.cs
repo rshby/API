@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -29,6 +30,7 @@ namespace API.Controllers
                 {
                     return BadRequest();
                 }
+                //employee.NIK = DateTime.Now.ToString("yyyy"); 
                 var resultInsert = employeeRepository.Insert(employee);
                 if (resultInsert != 0)
                 {
@@ -50,24 +52,70 @@ namespace API.Controllers
         [HttpGet]
         public ActionResult GET()
         {
-            return Ok(employeeRepository.GET());
+            try
+            {
+                var hasilData = employeeRepository.GET();
+                if (hasilData.Any())
+                {
+                    return Ok(employeeRepository.GET());
+                }
+                else
+                {
+                    return NotFound("Data tidak ada");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error SHowing Data");
+            }
         }
 
         //show data by NIK
         [HttpGet("{NIK}")]
         public ActionResult GetEmployeeById(string NIK)
         {
-            return Ok(employeeRepository.Get(NIK));
+            try
+            {
+                var hasilData = employeeRepository.Get(NIK);
+                if (hasilData != null)
+                {
+                    return Ok(employeeRepository.Get(NIK));
+                }
+                else
+                {
+                    return NotFound("Data tidak ada");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error SHowing Data");
+            }
         }
 
         //Update data employee
-        [HttpPatch("update/{NIK}")]
-        public async Task<ActionResult<Employee>> UpdateEmployeeById(string NIK, [FromBody] JsonPatchDocument patchEntity)
+        [HttpPut("update/{NIK}")]
+        public ActionResult UpdateEmployee(Employee employee)
         {
             try
             {
-                await employeeRepository.UpdateEmployee(NIK, patchEntity);
-                return Ok("Data Berhasil diupdate");
+                if (employee != null)
+                {
+                    var hasilUpdate = employeeRepository.Update(employee);
+                    if (hasilUpdate != null)
+                    {
+                        return Ok("Data Berhasil diupdate");
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception)
             {
