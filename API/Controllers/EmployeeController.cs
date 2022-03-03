@@ -95,7 +95,7 @@ namespace API.Controllers
         }
 
         //Update data employee
-        [HttpPut("update/{NIK}")]
+        [HttpPut("update")]
         public ActionResult UpdateEmployee(Employee employee)
         {
             try
@@ -103,18 +103,18 @@ namespace API.Controllers
                 if (employee != null)
                 {
                     var hasilUpdate = employeeRepository.Update(employee);
-                    if (hasilUpdate != null)
+                    if (hasilUpdate != 0)
                     {
                         return Ok("Data Berhasil diupdate");
                     }
                     else
                     {
-                        return BadRequest();
+                        return BadRequest("Data Gagal Diupdate");
                     }
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest("Data Harus Di isi");
                 }
             }
             catch (Exception)
@@ -146,8 +146,7 @@ namespace API.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data");
+                return BadRequest($"NIK {NIK} tidak ditemukan");
             }
         }
     }
