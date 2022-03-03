@@ -31,19 +31,26 @@ namespace API.Controllers
                     return BadRequest();
                 }
                 var resultInsert = employeeRepository.Insert(employee);
-                if (resultInsert != 0)
+                if (resultInsert > 0)
                 {
                     return Ok("Data Berhasil ditambah");
                 }
+                else if (resultInsert == -1)
+                {
+                    return BadRequest("Data Gagal ditambah, email sudah ada");
+                }
+                else if (resultInsert == 0)
+                {
+                    return BadRequest("No hp dan email sudah ada");
+                }
                 else
                 {
-                    return BadRequest("Data Gagal ditambah, Cek email dan phone tidak boleh sama");
+                    return BadRequest("Data Gagal ditambah, no hp sudah ada");
                 }
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error creating new employee record");
+                return BadRequest("Error saat insert data");
             }
         }
 

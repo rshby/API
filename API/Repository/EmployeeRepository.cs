@@ -42,10 +42,22 @@ namespace API.Repository
         // Insert Data Employee Into Database
         public int Insert(Employee employee)
         {
-            if (employee.Email != employee.Phone)
+            var emailData = context.Employees.Where(e => e.Email == employee.Email).SingleOrDefault();
+            var phoneData = context.Employees.Where(e => e.Phone == employee.Phone).SingleOrDefault();  
+            if (emailData == null && phoneData == null)
             {
                 context.Employees.Add(employee);
                 var result = context.SaveChanges();
+                return result;
+            }
+            else if (emailData != null && phoneData == null) // email sudah ada
+            {
+                var result = -1; 
+                return result;
+            }
+            else if (phoneData != null && emailData == null) // no hp sudah ada
+            {
+                var result = -2;
                 return result;
             }
             else
