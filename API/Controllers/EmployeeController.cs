@@ -123,7 +123,7 @@ namespace API.Controllers
             }
         }
 
-        //delete data
+        //Delete Data 
         [HttpDelete("delete/{NIK}")]
         public ActionResult<Employee> DeleteEmployeeById(string NIK)
         {
