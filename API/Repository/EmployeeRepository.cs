@@ -17,7 +17,7 @@ namespace API.Repository
             this.context = context;
         }
 
-        // delete data employee by NIK
+        // Delete Data Employee By NIK
         public int Delete(string NIK)
         {
             var entity = context.Employees.Find(NIK);
@@ -26,30 +26,33 @@ namespace API.Repository
             return result;
         }
 
+        // Get All Data Employees
         public IEnumerable<Employee> GET()
         {
             return context.Employees.ToList();
         }
 
+        // Get Data Employee By NIK
         public Employee Get(string NIK)
         {
-            var hasilData = context.Employees.Where(e => e.NIK == NIK)
-                .Select(e => new Employee() { 
-                    NIK = e.NIK,
-                    FirstName = e.FirstName,
-                    LastName = e.LastName, 
-                    Phone = e.Phone
-                })
-                .FirstOrDefault<Employee>();
             var hasil = context.Employees.Find(NIK);
             return hasil;
         }
 
+        // Insert Data Employee Into Database
         public int Insert(Employee employee)
         {
-            context.Employees.Add(employee);
-            var result = context.SaveChanges();
-            return result;
+            if (employee.Email != employee.Phone)
+            {
+                context.Employees.Add(employee);
+                var result = context.SaveChanges();
+                return result;
+            }
+            else
+            {
+                var result = 0;
+                return result;
+            }
         }
         
         // Update Data Employee

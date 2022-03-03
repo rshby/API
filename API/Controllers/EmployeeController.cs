@@ -30,7 +30,6 @@ namespace API.Controllers
                 {
                     return BadRequest();
                 }
-                //employee.NIK = DateTime.Now.ToString("yyyy"); 
                 var resultInsert = employeeRepository.Insert(employee);
                 if (resultInsert != 0)
                 {
@@ -38,7 +37,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound("Data Gagal ditambah");
+                    return BadRequest("Data Gagal ditambah, Cek email dan phone tidak boleh sama");
                 }
             }
             catch (Exception)
@@ -84,7 +83,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound("Data tidak ada");
+                    return BadRequest("Data tidak ada");
                 }
             }
             catch (Exception)
