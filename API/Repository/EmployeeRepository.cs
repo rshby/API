@@ -3,6 +3,7 @@ using API.Models;
 using API.Repository.Interface;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +43,12 @@ namespace API.Repository
         // Insert Data Employee Into Database
         public int Insert(Employee employee)
         {
+            var jumlahData = GET().Count();
+            if (GET().Count() == null)
+            {
+                jumlahData = 0;
+            }
+            employee.NIK = DateTime.Now.ToString("yyyy") + jumlahData.ToString().PadLeft(3, '0');
             var emailData = context.Employees.Where(e => e.Email == employee.Email).SingleOrDefault();
             var phoneData = context.Employees.Where(e => e.Phone == employee.Phone).SingleOrDefault();  
             if (emailData == null && phoneData == null)
@@ -73,17 +80,6 @@ namespace API.Repository
             context.Entry(employee).State = EntityState.Modified;
             var result = context.SaveChanges();
             return result;
-        }
-
-        // New Update Employee
-        public async Task UpdateEmployee(string NIK, JsonPatchDocument empModel)
-        {
-            var hasilData = await context.Employees.FindAsync(NIK);
-            if (hasilData != null)
-            {
-                empModel.ApplyTo(hasilData);
-                await context.SaveChangesAsync();
-            }
         }
     }
 }

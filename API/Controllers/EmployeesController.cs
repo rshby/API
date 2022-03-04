@@ -12,10 +12,10 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly EmployeeRepository employeeRepository;
-        public EmployeeController(EmployeeRepository employeeRepository)
+        public EmployeesController(EmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
@@ -60,8 +60,7 @@ namespace API.Controllers
         {
             try
             {
-                var hasilData = employeeRepository.GET();
-                if (hasilData.Any())
+                if (employeeRepository.GET().Count() != null)
                 {
                     return Ok(employeeRepository.GET());
                 }
