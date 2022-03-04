@@ -43,14 +43,9 @@ namespace API.Repository
         // Insert Data Employee Into Database
         public int Insert(Employee employee)
         {
-            var jumlahData = GET().Count();
-            if (GET().Count() == null)
-            {
-                jumlahData = 0;
-            }
-            employee.NIK = DateTime.Now.ToString("yyyy") + jumlahData.ToString().PadLeft(3, '0');
-            var emailData = context.Employees.Where(e => e.Email == employee.Email).SingleOrDefault();
-            var phoneData = context.Employees.Where(e => e.Phone == employee.Phone).SingleOrDefault();  
+            employee.NIK = DateTime.Now.ToString("yyyy") + (GET().Count() + 1).ToString().PadLeft(3, '0');
+            var emailData = context.Employees.SingleOrDefault(e => e.Email == employee.Email);
+            var phoneData = context.Employees.SingleOrDefault(e => e.Phone == employee.Phone);  
             if (emailData == null && phoneData == null)
             {
                 context.Employees.Add(employee);

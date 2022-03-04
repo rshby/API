@@ -60,7 +60,7 @@ namespace API.Controllers
         {
             try
             {
-                if (employeeRepository.GET().Count() != null)
+                if (employeeRepository.GET().Count() != 0)
                 {
                     return Ok(employeeRepository.GET());
                 }
