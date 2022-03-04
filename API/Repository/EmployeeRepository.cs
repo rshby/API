@@ -43,9 +43,15 @@ namespace API.Repository
         // Insert Data Employee Into Database
         public int Insert(Employee employee)
         {
-            employee.NIK = DateTime.Now.ToString("yyyy") + (GET().Count() + 1).ToString().PadLeft(3, '0');
+            int lastNIK = 0;
+            if (GET().Count() != 0)
+            {
+                lastNIK = int.Parse(context.Employees.OrderByDescending(e => e.NIK).Select(e => e.NIK).FirstOrDefault().ToString().Substring(4));
+            }
+            employee.NIK = DateTime.Now.ToString("yyyy") + (lastNIK + 1).ToString().PadLeft(3, '0');
             var emailData = context.Employees.SingleOrDefault(e => e.Email == employee.Email);
             var phoneData = context.Employees.SingleOrDefault(e => e.Phone == employee.Phone);  
+
             if (emailData == null && phoneData == null)
             {
                 context.Employees.Add(employee);
