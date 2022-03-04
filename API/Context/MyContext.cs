@@ -10,5 +10,10 @@ namespace API.Context
 
         }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Profiling> Profilings { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<University> Universities { get; set; }
+
     }
 }

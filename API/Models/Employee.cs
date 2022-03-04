@@ -15,7 +15,10 @@ namespace API.Models
         public DateTime BirthDate { get; set; }
         public int Salary { get; set; }
         public string Email { get; set; }
-        public Gender Gender { get; set; }   
+        public Gender Gender { get; set; }
+
+        // Relation
+        public Account Account { get; set; }
     }
     public enum Gender
     {
