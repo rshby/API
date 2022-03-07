@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace API.Repository
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepositoryOld : IEmployeeRepository
     {
         private readonly MyContext context;
-        public EmployeeRepository(MyContext context)
+        public EmployeeRepositoryOld(MyContext context)
         {
             this.context = context;
         }
@@ -44,13 +44,15 @@ namespace API.Repository
         public int Insert(Employee employee)
         {
             int lastNIK = 0;
-            if (GET().Count() != 0)
-            {
-                lastNIK = int.Parse(context.Employees.OrderByDescending(e => e.NIK).Select(e => e.NIK).FirstOrDefault().ToString().Substring(4));
-            }
-            employee.NIK = DateTime.Now.ToString("yyyy") + (lastNIK + 1).ToString().PadLeft(3, '0');
             var emailData = context.Employees.SingleOrDefault(e => e.Email == employee.Email);
             var phoneData = context.Employees.SingleOrDefault(e => e.Phone == employee.Phone);  
+
+            if (GET().Count() != 0)
+            {
+                lastNIK = int.Parse(context.Employees.OrderByDescending(e => e.NIK).
+                    Select(e => e.NIK).FirstOrDefault().ToString().Substring(4));
+            }
+            employee.NIK = DateTime.Now.ToString("yyyy") + (lastNIK + 1).ToString().PadLeft(3, '0');
 
             if (emailData == null && phoneData == null)
             {

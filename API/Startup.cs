@@ -1,5 +1,6 @@
 using API.Context;
 using API.Repository;
+using API.Repository.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace API
             services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("API")));
             services.AddScoped<EmployeeRepository>();
+            services.AddScoped<UniversityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

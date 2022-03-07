@@ -8,9 +8,9 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
+    public class UniversitiesController : BaseController<University, UniversityRepository, int>
     {
-        public EmployeesController(EmployeeRepository employeeRepository) : base(employeeRepository)
+        public UniversitiesController(UniversityRepository univRepo ) : base( univRepo )    
         {
 
         }
