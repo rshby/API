@@ -92,9 +92,9 @@ namespace API.Controllers
                     return BadRequest("data tidak diisi");
                 }
             }
-            catch(Exception) 
+            catch(Exception e) 
             {
-                return BadRequest("error system login");
+                return BadRequest($"error system login : {e}");
             }   
         }
 
@@ -107,11 +107,19 @@ namespace API.Controllers
                 var hasil = _accountRepo.ForgotPassword(inputData.Email);
                 if (hasil > 0)
                 {
-                    return Ok("Cek Email!!");
+                    return Ok("Cek Email!!"); // sukses
+                }
+                else if (hasil == 0)
+                {
+                    return BadRequest("Cek Kodingan"); // gagal kirim email
+                }
+                else if (hasil == -1)
+                {
+                    return BadRequest("Gagal Update"); // gagal update
                 }
                 else
                 {
-                    return BadRequest("Cek Kodingan");
+                    return NotFound($"data dengan email {inputData.Email} tidak ada di database");
                 }
             }
             catch(Exception e)

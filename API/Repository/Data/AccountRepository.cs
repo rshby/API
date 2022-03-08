@@ -66,11 +66,8 @@ namespace API.Repository.Data
             if (dataEmail == null && dataPhone == null) // email dan phone aman
             {
                 _context.Employees.Add(emp);
-                _context.SaveChanges();
                 _context.Accounts.Add(acc);
-                _context.SaveChanges();
                 _context.Educations.Add(edu);
-                _context.SaveChanges();
                 _context.Profilings.Add(prf);
                 _context.SaveChanges();
                 return 1;
@@ -106,17 +103,14 @@ namespace API.Repository.Data
                     {
                         Email = e.Email,
                         Password = a.Password
-                    });
-
-                // ambil 1 data dari hasil Join pilih email yang diinput
-                var dataHasilJoin = data.SingleOrDefault(e => e.Email == inputData.Email);
+                    }).SingleOrDefault(r => r.Email == inputData.Email);
 
                 // cek apakah Email cocok dengan Password
-                if (dataHasilJoin.Email == inputData.Email && dataHasilJoin.Password == inputData.Password)
+                if (data.Email == inputData.Email && data.Password == inputData.Password)
                 {
                     return 1; //sukses login
                 }
-                else if (dataHasilJoin.Email == inputData.Email && dataHasilJoin.Password != inputData.Password)
+                else if (data.Email == inputData.Email && data.Password != inputData.Password)
                 {
                     return -1; // password salah
                 }
@@ -144,40 +138,56 @@ namespace API.Repository.Data
                     Password = a.Password
                 }).SingleOrDefault(d => d.Email == inputEmail);
 
-            // update dataDipilih tamahkan OTP
-            var dataUpdate = new Account()
+            // cek apakah email ada di database
+            if (dataJoin != null)
             {
-                NIK = dataJoin.NIK,
-                Password = dataJoin.Password,
-                ExpiredToken = DateTime.Now.AddMinutes(5),
-                IsUsed = false,
-                OTP = new Random().Next(111111, 999999)
-            };
+                // update dataDipilih tamahkan OTP
+                var dataUpdate = new Account()
+                {
+                    NIK = dataJoin.NIK,
+                    Password = "admin123", // set password default
+                    ExpiredToken = DateTime.Now.AddMinutes(5),
+                    IsUsed = false,
+                    OTP = new Random().Next(111111, 999999)
+                };
 
-            // update tabel Account sesuai dengan dataUpdate
-            var update = Update(dataUpdate);
+                // update tabel Account sesuai dengan dataUpdate
+                var update = Update(dataUpdate);
 
-            // kirim kode OTP ke email
-            try
-            {
-                var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("OTP Forgot Password", "rshby99@gmail.com"));
-                email.To.Add(MailboxAddress.Parse(inputEmail));
-                email.Subject = "OTP Forgot Password API Account";
-                email.Body = new TextPart("Plain") { Text = $"Kode OTP : {dataUpdate.OTP}" };
+                // cek apabila update berhasil
+                if (update == 1)
+                {
+                    // kirim kode OTP ke email
+                    try
+                    {
+                        var email = new MimeMessage();
+                        email.From.Add(new MailboxAddress("OTP Forgot Password", "rshby99@gmail.com"));
+                        email.To.Add(MailboxAddress.Parse(inputEmail));
+                        email.Subject = "OTP Forgot Password API Account";
+                        email.Body = new TextPart("Plain") { Text = $"Kode OTP : {dataUpdate.OTP}" };
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Connect("smtp.gmail.com", 465, true);
-                smtp.Authenticate("rshby99@gmail.com", "reo050299");
-                smtp.Send(email);
-                smtp.Disconnect(true);
-                smtp.Dispose();
-                
-                return 1;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Connect("smtp.gmail.com", 465, true);
+                        smtp.Authenticate("rshby99@gmail.com", "reo050299");
+                        smtp.Send(email);
+                        smtp.Disconnect(true);
+                        smtp.Dispose();
+
+                        return 1; // sukses kirim email
+                    }
+                    catch (Exception)
+                    {
+                        return 0; // gagal kirim email
+                    }
+                }
+                else
+                {
+                    return -1; // gagal update
+                }
             }
-            catch (Exception)
+            else
             {
-                return 0;
+                return -2; // email tidak ada di database
             }
         }
     }
