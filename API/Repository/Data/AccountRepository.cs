@@ -190,5 +190,85 @@ namespace API.Repository.Data
                 return -2; // email tidak ada di database
             }
         }
+
+        // Change Password
+        public int ChangePassword(ChangePasswordVM inputData)
+        {
+            // ambil 1 data hasil join untuk mencocokan
+            var data = _context.Employees.Join(_context.Accounts,
+                e => e.NIK,
+                a => a.NIK,
+                (e, a) => new {
+                    NIK = a.NIK,
+                    Email = e.Email,
+                    Password = a.Password,
+                    OTP = a.OTP,
+                    ExpiredToken = a.ExpiredToken,
+                    IsUsed = a.IsUsed
+                }).SingleOrDefault(r => r.Email == inputData.Email);
+
+            // cek email apakah ada di database
+            if (data != null)
+            {
+                // cek apakah IsUsed == false
+                if (data.IsUsed == false)
+                {
+                    // cek apakah OTP dan Expired Benar
+                    if ((data.OTP == inputData.OTP) && (DateTime.Now <= data.ExpiredToken))
+                    {
+                        // cek apakah Password dan ConfirmPassword Sama
+                        if (inputData.Password == inputData.ConfirmPassword)
+                        {
+                            // buat objek dari class model Account
+                            var dataUpdate = new Account()
+                            {
+                                NIK = data.NIK,
+                                Password = inputData.Password,
+                                ExpiredToken = DateTime.Now,
+                                IsUsed = true,
+                                OTP = 0
+                            };
+
+                            // update ke database
+                            var updateResult = Update(dataUpdate);
+
+                            // cek apabila update berhasil
+                            if (updateResult == 1)
+                            {
+                                return 1; // sukses Update Password
+                            }
+                            else
+                            {
+                                return -6; // gagal update
+                            }
+                        }
+                        else
+                        {
+                            return -5; // Pass dan ConfirmPass Tidak Sama
+                        }
+                    }
+                    else if((data.OTP != inputData.OTP) && (DateTime.Now <= data.ExpiredToken))
+                    {
+                        return -2; // OTP Salah
+                    }
+                    else if ((data.OTP == inputData.OTP) && (DateTime.Now > data.ExpiredToken))
+                    {
+                        return -3; // Expired
+                    }
+                    else
+                    {
+                        return -4; // OTP Salah dan sudah Expired
+                    }
+                }
+                else
+                {
+                    return -1; // OTP sudah digunakan
+                }
+            }
+            else
+            {
+                return 0; // email tidak ada di database
+            }
+        }
     }
 }

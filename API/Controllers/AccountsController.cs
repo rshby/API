@@ -127,5 +127,62 @@ namespace API.Controllers
                 return BadRequest($"Error System : {e}");
             }
         }
+
+        // Change Password
+        [HttpPost("changepassword")]
+        public ActionResult ChangePassword(ChangePasswordVM inputData)
+        {
+            try
+            {
+                // cek data tidak kosong dan Password dan ConfirmPass sama
+                if (inputData != null)
+                {
+                    // proses change password
+                    var changePassword = _accountRepo.ChangePassword(inputData);
+
+                    // cek apakah chane passowrd berhasil
+                    if (changePassword == 1)
+                    {
+                        return Ok($"SUKSES, Akun {inputData.Email} Berhasil Mengganti Passowrd Menjadi {inputData.Password}");
+                    }
+                    else if (changePassword == 0)
+                    {
+                        return NotFound($"Data Dengan Email {inputData.Email} Tidak Ada di Database");
+                    }
+                    else if (changePassword == -1)
+                    {
+                        return BadRequest($"Kode OTP {inputData.OTP} Sudah Digunakan");
+                    }
+                    else if (changePassword == -2)
+                    {
+                        return BadRequest("Kode OTP Salah");
+                    }
+                    else if (changePassword == -3)
+                    {
+                        return BadRequest("Kode OTP SUdah Expired");
+                    }
+                    else if (changePassword == -4)
+                    {
+                        return BadRequest("Kode OTP Salah dan Sudah Expired");
+                    }
+                    else if (changePassword == -5)
+                    {
+                        return BadRequest("Password dan Confirm Password Harus Sama");
+                    }
+                    else
+                    {
+                        return BadRequest("Error Proses Change Password");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Data Inputan Tidak Lengkap");
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest($"Error system Change Password : {e}");
+            }
+        }
     }
 }
