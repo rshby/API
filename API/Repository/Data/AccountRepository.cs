@@ -1,6 +1,8 @@
 ﻿using API.Context;
 using API.Models;
 using API.ViewModel;
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,6 @@ namespace API.Repository.Data
     public class AccountRepository : GeneralRepository<MyContext, Account, string>
     {
         private readonly MyContext _context;
-        private readonly EmployeeRepository _empRepo;
 
         public IEnumerable<object> Accounts { get; private set; }
 
@@ -131,5 +132,53 @@ namespace API.Repository.Data
         }
 
         // Lupa Password
+        public int ForgotPassword(string inputEmail)
+        {
+            // join tabel Employee dan Account
+            var dataJoin = _context.Employees.Join(_context.Accounts,
+                e => e.NIK,
+                a => a.NIK,
+                (e, a) => new {
+                    NIK = e.NIK,
+                    Email = e.Email,
+                    Password = a.Password
+                }).SingleOrDefault(d => d.Email == inputEmail);
+
+            // update dataDipilih tamahkan OTP
+            var dataUpdate = new Account()
+            {
+                NIK = dataJoin.NIK,
+                Password = dataJoin.Password,
+                ExpiredToken = DateTime.Now.AddMinutes(5),
+                IsUsed = false,
+                OTP = new Random().Next(111111, 999999)
+            };
+
+            // update tabel Account sesuai dengan dataUpdate
+            var update = Update(dataUpdate);
+
+            // kirim kode OTP ke email
+            try
+            {
+                var email = new MimeMessage();
+                email.From.Add(new MailboxAddress("OTP Forgot Password", "rshby99@gmail.com"));
+                email.To.Add(MailboxAddress.Parse(inputEmail));
+                email.Subject = "OTP Forgot Password API Account";
+                email.Body = new TextPart("Plain") { Text = $"Kode OTP : {dataUpdate.OTP}" };
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 465, true);
+                smtp.Authenticate("rshby99@gmail.com", "reo050299");
+                smtp.Send(email);
+                smtp.Disconnect(true);
+                smtp.Dispose();
+                
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

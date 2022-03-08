@@ -97,5 +97,27 @@ namespace API.Controllers
                 return BadRequest("error system login");
             }   
         }
+
+        // Forgot Password
+        [HttpPost("forgotpassword")]
+        public ActionResult ForgotPassword(LoginVM inputData)
+        {
+            try
+            {
+                var hasil = _accountRepo.ForgotPassword(inputData.Email);
+                if (hasil > 0)
+                {
+                    return Ok("Cek Email!!");
+                }
+                else
+                {
+                    return BadRequest("Cek Kodingan");
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest($"Error System : {e}");
+            }
+        }
     }
 }

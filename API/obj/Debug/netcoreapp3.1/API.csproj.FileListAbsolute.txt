@@ -63,3 +63,7 @@ C:\Users\ASUS\Documents\Metrodata\API\API\obj\Debug\netcoreapp3.1\API.genruntime
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
