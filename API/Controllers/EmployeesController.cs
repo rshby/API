@@ -10,6 +10,7 @@ namespace API.Controllers
     [ApiController]
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
+        // Constructor
         public EmployeesController(EmployeeRepository employeeRepository) : base(employeeRepository)
         {
 

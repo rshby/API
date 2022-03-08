@@ -29,10 +29,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
-            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("API")));
+            services.AddControllers();
             services.AddScoped<EmployeeRepository>();
             services.AddScoped<UniversityRepository>();
+            services.AddScoped<AccountRepository>();
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("API")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

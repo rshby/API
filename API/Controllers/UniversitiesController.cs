@@ -10,6 +10,7 @@ namespace API.Controllers
     [ApiController]
     public class UniversitiesController : BaseController<University, UniversityRepository, int>
     {
+        // Costructor
         public UniversitiesController(UniversityRepository univRepo ) : base( univRepo )    
         {
 

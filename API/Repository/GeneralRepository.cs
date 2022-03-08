@@ -20,10 +20,10 @@ namespace API.Repository
             entities = myContext.Set<Entity>();
         }
 
-        // Detele Data
-        public int Delete(Key key)
+        // Delete Data
+        public int Delete(Key id)
         {
-            var hasilData = entities.Find(key);
+            var hasilData = entities.Find(id);
             myContext.Remove(hasilData);
             var result = myContext.SaveChanges();
             return result;
@@ -36,9 +36,9 @@ namespace API.Repository
         }
 
         // Get Data By Id
-        public Entity Get(Key key)
+        public Entity Get(Key id)
         {
-            return entities.Find(key);
+            return entities.Find(id);
         }
 
         // Insert Data
