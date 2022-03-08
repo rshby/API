@@ -56,5 +56,46 @@ namespace API.Controllers
                 return BadRequest("Error Saat Register");
             }
         }
+
+        // Login
+        [HttpGet("login")]
+        public ActionResult Login(LoginVM inputData)
+        {
+            try
+            {
+                // cek data sudah diisi
+                if (inputData != null)
+                {
+                    // panggil method Login di Repository
+                    var hasilLogin = _accountRepo.Login(inputData);
+
+                    // Cek hasil login
+                    if (hasilLogin > 0)
+                    {
+                        return Ok("Selamat Login Berhasil");
+                    }
+                    else if (hasilLogin == 0)
+                    {
+                        return NotFound($"akun dengan email {inputData.Email} tidak ditemukan di database");
+                    }
+                    else if (hasilLogin == -1)
+                    {
+                        return BadRequest("Maaf, Password Anda Salah!");
+                    }
+                    else
+                    {
+                        return BadRequest("Maaf, email anda salah");
+                    }
+                }
+                else
+                {
+                    return BadRequest("data tidak diisi");
+                }
+            }
+            catch(Exception) 
+            {
+                return BadRequest("error system login");
+            }   
+        }
     }
 }

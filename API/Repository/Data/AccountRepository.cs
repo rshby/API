@@ -2,6 +2,7 @@
 using API.Models;
 using API.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace API.Repository.Data
@@ -10,6 +11,8 @@ namespace API.Repository.Data
     {
         private readonly MyContext _context;
         private readonly EmployeeRepository _empRepo;
+
+        public IEnumerable<object> Accounts { get; private set; }
 
         // Constructor
         public AccountRepository(MyContext myContext) : base(myContext)
@@ -84,5 +87,49 @@ namespace API.Repository.Data
                 return 0;
             }
         }
+
+        // Login menggunakan Email dan Password
+        public int Login(LoginVM inputData)
+        {
+            // ambil data berdasarkan email
+            var dataDiambil = _context.Employees.SingleOrDefault(e => e.Email == inputData.Email);
+
+            // cek ke database apakah data email ada
+            if (dataDiambil != null)
+            {
+                // ambil data join tabel Employee dan Account
+                var data = _context.Employees.Join(_context.Accounts,
+                    e => e.NIK,
+                    a => a.NIK,
+                    (e, a) => new
+                    {
+                        Email = e.Email,
+                        Password = a.Password
+                    });
+
+                // ambil 1 data dari hasil Join pilih email yang diinput
+                var dataHasilJoin = data.SingleOrDefault(e => e.Email == inputData.Email);
+
+                // cek apakah Email cocok dengan Password
+                if (dataHasilJoin.Email == inputData.Email && dataHasilJoin.Password == inputData.Password)
+                {
+                    return 1; //sukses login
+                }
+                else if (dataHasilJoin.Email == inputData.Email && dataHasilJoin.Password != inputData.Password)
+                {
+                    return -1; // password salah
+                }
+                else
+                {
+                    return -2; // email salah
+                }
+            }
+            else
+            {
+                return 0; // data email tidak ada
+            }
+        }
+
+        // Lupa Password
     }
 }
