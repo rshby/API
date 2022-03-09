@@ -24,40 +24,9 @@ namespace API.Repository.Data
         // Insert Register Account
         public int Register(RegisterVM inputData)
         {
-            Employee emp = new Employee()
-            {
-                FirstName = inputData.FirstName,
-                LastName = inputData.LastName,
-                Phone = inputData.Phone,
-                BirthDate = inputData.BirthDate,
-                Salary = inputData.Salary,
-                Email = inputData.Email,
-                Gender = inputData.Gender
-            };
-
-            Account acc = new Account()
-            {
-                Password = inputData.Password,
-            };
-
-            Education edu = new Education()
-            {
-                Degree = inputData.Degree,
-                GPA = inputData.GPA,
-                University_Id = inputData.University_Id,
-            };
-
-            Profiling prf = new Profiling();
-
             // Auto Increment NIK
             var empCount = _context.Employees.Count() + 1;
             var Year = DateTime.Now.Year;
-            emp.NIK = Year + "00" + empCount.ToString();
-            acc.NIK = emp.NIK;
-
-            // Set Data Tabel Profiling
-            prf.NIK = acc.NIK;
-            prf.Education = edu;
 
             // Cek phone dan email tidak boleh sama
             var dataEmail = _context.Employees.SingleOrDefault(e => e.Email == inputData.Email);
@@ -65,24 +34,61 @@ namespace API.Repository.Data
 
             if (dataEmail == null && dataPhone == null) // email dan phone aman
             {
+                // Save data Tabel Employee
+                Employee emp = new Employee()
+                {
+                    NIK = Year + "00" + empCount.ToString(),
+                    FirstName = inputData.FirstName,
+                    LastName = inputData.LastName,
+                    Phone = inputData.Phone,
+                    BirthDate = inputData.BirthDate,
+                    Salary = inputData.Salary,
+                    Email = inputData.Email,
+                    Gender = inputData.Gender
+                };
                 _context.Employees.Add(emp);
+                _context.SaveChanges();
+
+                // Save Data Tabel Account
+                Account acc = new Account()
+                {
+                    NIK = emp.NIK,
+                    Password = inputData.Password
+                };
                 _context.Accounts.Add(acc);
+                _context.SaveChanges();
+
+                // Save Data Education
+                Education edu = new Education()
+                {
+                    Degree = inputData.Degree,
+                    GPA = inputData.GPA,
+                    University_Id = inputData.University_Id,
+                };
                 _context.Educations.Add(edu);
+                _context.SaveChanges();
+
+                // Save Data Tabel Profiling
+                Profiling prf = new Profiling()
+                {
+                    NIK = emp.NIK,
+                    Education_Id = edu.Id
+                };
                 _context.Profilings.Add(prf);
                 _context.SaveChanges();
-                return 1;
+                return 1; // Sukses Register
             }
-            else if (dataEmail != null && dataPhone == null) // email sudah ada
+            else if (dataEmail != null && dataPhone == null) 
             {
-                return -1;
+                return -1; // email sudah ada
             }
-            else if (dataEmail == null && dataPhone != null) // phone sudah ada
+            else if (dataEmail == null && dataPhone != null) 
             {
-                return -2;
+                return -2; // phone sudah ada
             }
             else
             {
-                return 0;
+                return 0; // Email dan Phone Sudah Ada
             }
         }
 
