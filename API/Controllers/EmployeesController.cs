@@ -37,7 +37,7 @@ namespace API.Controllers
             }
             catch(Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest($"Error System Get All Master : {e.Message}");
             }
         }
     }
