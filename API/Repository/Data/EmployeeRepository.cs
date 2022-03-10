@@ -31,7 +31,7 @@ namespace API.Repository.Data
                     NIK = d.eaped.eap.ea.e.NIK.ToString(),
                     FullName = $"{d.eaped.eap.ea.e.FirstName} {d.eaped.eap.ea.e.LastName}",
                     Phone = d.eaped.eap.ea.e.Phone,
-                    Gender = d.eaped.eap.ea.e.Gender,
+                    Gender = d.eaped.eap.ea.e.Gender.ToString(),
                     Email = d.eaped.eap.ea.e.Email,
                     BirthDate = d.eaped.eap.ea.e.BirthDate,
                     Salary = d.eaped.eap.ea.e.Salary,
