@@ -6,7 +6,6 @@ using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace API.Repository.Data
 {
     public class AccountRepository : GeneralRepository<MyContext, Account, string>
@@ -19,6 +18,24 @@ namespace API.Repository.Data
         public AccountRepository(MyContext myContext) : base(myContext)
         {
             this._context = myContext; 
+        }
+
+        // Generate Salt
+        public static string GetRandomSalt()
+        {
+            return BCrypt.Net.BCrypt.GenerateSalt(12);
+        }
+
+        // Hasing Password
+        public string HashingPassword(string inputPassword)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(inputPassword, GetRandomSalt());
+        }
+
+        // Validate Password
+        public bool ValidatePassword(string inputPassword, string passwordBenar)
+        {
+            return BCrypt.Net.BCrypt.Verify(inputPassword, passwordBenar);
         }
 
         // Insert Register Account
@@ -53,7 +70,7 @@ namespace API.Repository.Data
                 Account acc = new Account()
                 {
                     NIK = emp.NIK,
-                    Password = inputData.Password
+                    Password = HashingPassword(inputData.Password)
                 };
                 _context.Accounts.Add(acc);
                 _context.SaveChanges();
@@ -112,11 +129,11 @@ namespace API.Repository.Data
                     }).SingleOrDefault(r => r.Email == inputData.Email);
 
                 // cek apakah Email cocok dengan Password
-                if (data.Email == inputData.Email && data.Password == inputData.Password)
+                if (data.Email == inputData.Email && ValidatePassword(inputData.Password, data.Password))
                 {
                     return 1; //sukses login
                 }
-                else if (data.Email == inputData.Email && data.Password != inputData.Password)
+                else if (data.Email == inputData.Email && ValidatePassword(inputData.Password, data.Password) == false)
                 {
                     return -1; // password salah
                 }
@@ -229,7 +246,7 @@ namespace API.Repository.Data
                             var dataUpdate = new Account()
                             {
                                 NIK = data.NIK,
-                                Password = inputData.Password,
+                                Password = HashingPassword(inputData.Password),
                                 ExpiredToken = DateTime.Now,
                                 IsUsed = true,
                                 OTP = 0
@@ -268,7 +285,7 @@ namespace API.Repository.Data
                 }
                 else
                 {
-                    return -1; // OTP sudah digunakan
+                    return -1; // OTP sudah digunakan dan Password Salah
                 }
             }
             else

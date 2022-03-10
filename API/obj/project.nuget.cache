@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1n/3Adj1MGlvEmVlqJ6DkMbTNIHOpvdSOZCaEVjcu4a4hQ95Euv+8rjMTwZjVHRHpwGkzQXm6BGJZvNRYrX3iQ==",
+  "dgSpecHash": "CHzAShsQvahor8QpS59EEG215quc4so1m4tvUmyZEiAXqEOCooJJjq0pfjC/MfUJMOf8RhqEQ8OnzeMPXzjBlg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ASUS\\Documents\\Metrodata\\API\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ASUS\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\mailkit\\2.6.0\\mailkit.2.6.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.9\\microsoft.aspnetcore.jsonpatch.5.0.9.nupkg.sha512",

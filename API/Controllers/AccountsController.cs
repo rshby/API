@@ -143,7 +143,7 @@ namespace API.Controllers
                     // cek apakah chane passowrd berhasil
                     if (changePassword == 1)
                     {
-                        return Ok($"SUKSES, Akun {inputData.Email} Berhasil Mengganti Passowrd Menjadi {inputData.Password}");
+                        return Ok($"SUKSES, Akun {inputData.Email} Berhasil Mengganti Passowrd");
                     }
                     else if (changePassword == 0)
                     {
@@ -151,7 +151,7 @@ namespace API.Controllers
                     }
                     else if (changePassword == -1)
                     {
-                        return BadRequest($"Kode OTP {inputData.OTP} Sudah Digunakan");
+                        return BadRequest($"Kode OTP Salah");
                     }
                     else if (changePassword == -2)
                     {
