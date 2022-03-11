@@ -1,8 +1,10 @@
 ﻿using API.Base;
 using API.Models;
 using API.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace API.Controllers
@@ -12,14 +14,17 @@ namespace API.Controllers
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
         private readonly EmployeeRepository _empRepo;
+        public IConfiguration _configration;
 
         // Constructor
-        public EmployeesController(EmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeesController(EmployeeRepository employeeRepository, IConfiguration configuration) : base(employeeRepository)
         {
-            _empRepo = employeeRepository;
+            this._empRepo = employeeRepository;
+            this._configration = configuration;
         }
 
         // Get All MasterEMployee
+        [Authorize]
         [HttpGet("master")]
         public ActionResult GetAllMasterEmployee()
         {

@@ -4,7 +4,14 @@ using API.Repository.Data;
 using API.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -13,11 +20,15 @@ namespace API.Controllers
     public class AccountsController : BaseController<Account, AccountRepository, string>
     {
         private readonly AccountRepository _accountRepo;
+        private AccountRoleRepository _accountRoleRepo;
+        public IConfiguration _configuraion;
 
         // Constructor
-        public AccountsController(AccountRepository accRepo) : base(accRepo)
+        public AccountsController(AccountRepository accRepo, IConfiguration configuration, AccountRoleRepository accRoleRepo) : base(accRepo)
         {
             this._accountRepo = accRepo;    
+            this._configuraion = configuration; 
+            this._accountRoleRepo = accRoleRepo;
         }
 
         // Insert Register
@@ -72,7 +83,31 @@ namespace API.Controllers
                     // Cek hasil login
                     if (hasilLogin > 0)
                     {
-                        return Ok("Selamat Login Berhasil");
+                        var getUserData = _accountRoleRepo.GetUserData(inputData.Email);
+
+                        var claims = new List<Claim>
+                        {
+                            new Claim("Email", getUserData.Email),
+                            new Claim("roles", getUserData.RoleName)
+                        };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuraion["Jwt:Key"]));
+                        var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var token = new JwtSecurityToken(
+                            _configuraion["Jwt:Issuer"],
+                            _configuraion["Jwt:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddMinutes(10),
+                            signingCredentials: signIn
+                            );
+                        var idToken = new JwtSecurityTokenHandler().WriteToken(token);
+                        claims.Add(new Claim("TokenSecurity", idToken.ToString()));
+
+                        return Ok(new { 
+                            status = HttpStatusCode.OK,
+                            token = idToken,
+                            message = "Login Sukses!"
+                        });
                     }
                     else if (hasilLogin == 0)
                     {

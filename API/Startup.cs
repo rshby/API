@@ -36,6 +36,7 @@ namespace API
             services.AddScoped<EmployeeRepository>();
             services.AddScoped<UniversityRepository>();
             services.AddScoped<AccountRepository>();
+            services.AddScoped<AccountRoleRepository>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
