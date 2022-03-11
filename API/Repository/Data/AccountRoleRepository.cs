@@ -1,6 +1,8 @@
 ﻿using API.Context;
 using API.Models;
 using API.ViewModel;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace API.Repository.Data
@@ -8,77 +10,60 @@ namespace API.Repository.Data
     public class AccountRoleRepository : GeneralRepository<MyContext, AccountRole, int>
     {
         private readonly MyContext myContext;
+        private readonly AccountRepository _accountRepository;
 
         // Constructor
-        public AccountRoleRepository(MyContext myContext) : base(myContext)
+        public AccountRoleRepository(MyContext myContext, AccountRepository accRepo) : base(myContext)
         {
             this.myContext = myContext;
+            this._accountRepository = accRepo;
         }
 
         // Get Role Name By Email
-        public AccountRoleVM GetUserData(string inputEmail)
+        public IEnumerable GetUserData(string inputEmail)
         {
             // Join Data
             var hasilData = myContext.Employees
                 .Join(myContext.Accounts, e => e.NIK, a => a.NIK, (e, a) => new { e, a})
                 .Join(myContext.AccountRoles, ea => ea.a.NIK, ar => ar.NIK, (ea, ar) => new { ea, ar})
                 .Join(myContext.Roles, eaar => eaar.ar.Role_Id, r => r.Id, (eaar, r) => new { eaar, r})
-                .Select(data => new
-                {
-                    NIK = data.eaar.ea.e.NIK,
-                    Email = data.eaar.ea.e.Email,
-                    RoleId = data.eaar.ar.Role_Id,
-                    RoleName = data.r.name
+                .Where(record => record.eaar.ea.e.Email == inputEmail)
+                .Select(data => data.r.name).ToList();
 
-                }).SingleOrDefault(record => record.Email == inputEmail);
-
-            var data = new AccountRoleVM()
-            {
-                NIK = hasilData.NIK,
-                Email = hasilData.Email,
-                RoleId = hasilData.RoleId,
-                RoleName = hasilData.RoleName
-            };
-            return data;
+            return hasilData;
         }
         
         // SignIn As Manager
-        public int SignManager(LoginVM inputData)
+        public int SignInManager(LoginVM inputData)
         {
-            // ambil NIK dari Email
+            // ambil data
             var data = myContext.Employees.SingleOrDefault(d => d.Email == inputData.Email);
-            
+
             if (data != null)
             {
-                // cek apakah email adalah director
-                var cekDirector = myContext.AccountRoles.SingleOrDefault(d => (d.NIK == data.NIK) && (d.Role_Id == 3));
+                // ambil data join
+                var dataJoin = myContext.Employees.Join(myContext.Accounts,
+                    e => e.NIK,
+                    a => a.NIK,
+                    (e, a) => new { e, a})
+                    .Select(d => new { 
+                        Email = d.e.Email,
+                        Password = d.a.Password
+                    }).SingleOrDefault(record => record.Email == inputData.Email);
 
-                if (cekDirector != null) // sudah menjadi direktor
+                // cek email dan password apakah sama
+                if ((inputData.Email == dataJoin.Email) && (_accountRepository.ValidatePassword(inputData.Password, dataJoin.Password)))
                 {
-                    var dataSudahAda = myContext.AccountRoles.SingleOrDefault(d => (d.NIK == data.NIK) && (d.Role_Id == 2));
-                    if (dataSudahAda == null) // data belum ada
-                    {
-                        var dataAR = new AccountRole()
-                        {
-                            NIK = data.NIK,
-                            Role_Id = 2
-                        };
-
-                        Insert(dataAR); // data baru
-                        return 1; // menambah role manager ke email tersebut
-                    }
-                    else
-                    {
-                        return -2; // data role manager sudah ada
-                    }
+                    return 1; // sukses Login
                 }
+                else
                 {
-                    return -1; // belum menjadi direktor
+                    return -1; // Password Salah
                 }
             }
             else
             {
-                return 0; // email tidak terdaftar
+                return 0; // email tidak ada di database
             }
         }
     }

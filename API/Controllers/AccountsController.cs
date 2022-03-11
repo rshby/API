@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
@@ -87,8 +88,12 @@ namespace API.Controllers
 
                         var claims = new List<Claim>
                         {
-                            new Claim("Email", getUserData.Email),
-                            new Claim("roles", getUserData.RoleName)
+                            new Claim("Email", inputData.Email)
+                        };
+
+                        foreach(var item in getUserData)
+                        {
+                            claims.Add(new Claim("roles", item.ToString()));
                         };
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuraion["Jwt:Key"]));

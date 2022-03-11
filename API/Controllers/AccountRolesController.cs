@@ -2,6 +2,7 @@
 using API.Models;
 using API.Repository.Data;
 using API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,27 +23,23 @@ namespace API.Controllers
             this._configuration = configuration;
         }
 
+        [Authorize(Roles = "Director")]
         [HttpPost("loginasmanager")]
         // Login As Manager
         public ActionResult LoginAsManager(LoginVM inputData)
         {
             try
             {
-                var hasilLogin = _accountRoleRepository.SignManager(inputData);
+                // nilai dari hasilLogin
+                var hasilLogin = _accountRoleRepository.SignInManager(inputData);
+
+                // cek hasilLogin
                 if (hasilLogin == 1)
                 {
                     return Ok(new
                     {
                         status = HttpStatusCode.OK,
-                        message = "Login Berhasil"
-                    });
-                }
-                else if(hasilLogin == -2)
-                {
-                    return Ok(new
-                    {
-                        status = HttpStatusCode.OK,
-                        message = "User Role Sudah Pernah dibuat"
+                        message = "Login Sebagai Manager Berhasil"
                     });
                 }
                 else if (hasilLogin == -1)
@@ -50,14 +47,14 @@ namespace API.Controllers
                     return BadRequest(new
                     {
                         status = HttpStatusCode.BadRequest,
-                        message = "User dengan email tersebut belum menjadi Director"
+                        message = "Password Anda Salah"
                     });
                 }
                 else
                 {
-                    return BadRequest(new
+                    return NotFound(new
                     {
-                        status = HttpStatusCode.BadRequest,
+                        status = HttpStatusCode.NotFound,
                         message = "Email Tidak Terdaftar di Database"
                     });
                 }
