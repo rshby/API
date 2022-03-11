@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models
 {
-    [Table("tb_m_university")]
-    public class University
+    [Table("tb_m_role")]
+    public class Role
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string name { get; set; }
 
-        // Relasi
+        // Relation
         [JsonIgnore]
-        public virtual ICollection<Education> Edcucation{ get; set; }
+        public virtual ICollection<AccountRole> AccountRoles { get; set; }
     }
 }

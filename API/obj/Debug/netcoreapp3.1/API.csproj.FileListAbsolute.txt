@@ -68,3 +68,6 @@ C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\ASUS\Documents\Metrodata\API\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
