@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Net;
 
 namespace API.Controllers
 {
@@ -44,6 +45,13 @@ namespace API.Controllers
             {
                 return BadRequest($"Error System Get All Master : {e.Message}");
             }
+        }
+
+        // Test Cors
+        [HttpGet("testcors")]
+        public ActionResult TestCors()
+        {
+            return Ok("Test Cors Berhasil");
         }
     }
 }

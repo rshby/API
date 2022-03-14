@@ -44,6 +44,10 @@ namespace API
             services.AddDbContext<MyContext>(options => 
             options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("API")));
 
+            services.AddCors(c => {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddAuthentication(auth => {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,6 +65,7 @@ namespace API
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +80,8 @@ namespace API
 
             app.UseRouting();
 
+            app.UseCors(options => options.AllowAnyOrigin());
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -82,6 +89,7 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
