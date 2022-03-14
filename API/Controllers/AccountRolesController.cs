@@ -61,10 +61,11 @@ namespace API.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new
+                return Unauthorized(new
                 {
-                    status = HttpStatusCode.BadRequest,
-                    message = e.Message
+                    status = HttpStatusCode.Unauthorized,
+                    message = "Role tidak diijinkan",
+                    error = e.Message
                 });
             }
         }

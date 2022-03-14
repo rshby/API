@@ -94,7 +94,7 @@ namespace API.Controllers
                         foreach(var item in getUserData)
                         {
                             claims.Add(new Claim("roles", item.ToString()));
-                        };
+                        }
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuraion["Jwt:Key"]));
                         var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
