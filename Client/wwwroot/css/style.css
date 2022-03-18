@@ -1,1 +1,22 @@
+/* div {
+  border: 1px solid black;
+} */
+.isi_konten {
+  margin-top: 100px;
+}
 
+.navbar {
+  background-color: #ffdfd3;
+}
+
+footer {
+  background-color: #fec8d8;
+}
+
+.footer-copyright {
+  background-color: #957dad;
+}
+
+.btn {
+  background-color: #e0bbe4;
+}
