@@ -1,3 +1,4 @@
+/*
 document.getElementById("btn_ubah").addEventListener("click", function () {
   document.getElementById("konten2").style.backgroundColor = "lightblue";
 });
@@ -34,3 +35,4 @@ animals.forEach((data) => {
 
 console.log(onlyCat);
 console.log(animals);
+*/

@@ -14,13 +14,11 @@
 
     <title>Hello, world!</title>
     <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,51 +37,86 @@
     </header>
 
     <!-- isi Konten -->
+    <!-- Tabel-->
     <div class="container isi_konten">
+        <!-- Judul -->
         <div class="row">
             <div class="col">
-                <p class="align-middle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dignissimos ullam sapiente fugiat vel in commodi provident excepturi magni libero eum neque earum consequatur tempore, id consequuntur maiores deleniti consectetur.</p>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col" id="konten2">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem deleniti iste rem odio aperiam quasi vel! Voluptate aspernatur ducimus eum nostrum. Vitae esse numquam quaerat repudiandae labore quas iusto voluptas?</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt similique nulla animi saepe dolores. Accusamus, officia. Ab velit eveniet pariatur, quod autem ut hic omnis aspernatur voluptate. Error, dolor architecto?</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col">
-                <button type="button" class="btn btn-lg mt-3" id="btn_ubah">Button</button>
+                <h2>Pokemon</h2>
             </div>
         </div>
 
-        <!-- Tabel-->
+        <!-- Tabel -->
         <div class="row center">
             <div class="col">
-                <table class="table mt-5 mb-5">
+                <table class="table mt-2 mb-5 text-center">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Height</th>
-                            <th scope="col">Mass</th>
-                            <th scope="col">Skin Color</th>
-                            <th scope="col">Eye Color</th>
-                            <th scope="col">Birth Year</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="tableSW">
+                    <tbody id="tablePokemon">
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPokemon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h2 class="modal-title text-center" id="exampleModalLabel">Detail Pokemon</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col text-center" id="modalPoke_kiri">
+                            <!-- di isi js -->
+                        </div>
+                        <div class="col">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#tabInformation" role="tab" aria-controls="tabInformation" aria-selected="true">Information</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="tabInformation" role="tabpanel" aria-labelledby="nav-information-tab">
+                                    <div class="row">
+                                        <div class="col mt-4">
+                                            <h5>General Information</h5>
+                                            <h6>Name : Reo Sahobby</h6>
+                                            <h6>Id : 1</h6>
+                                            <h6>Height : 10 inch</h6>
+                                            <h6>Base Experience : 150</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <h3>link 2</h3>
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                    <h3>link 3</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="page-footer sticky-bottom">
         <div class="container justify-content-center text-center align-items-center">
@@ -105,7 +138,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright text-center py-1">
+        <div class="footer-copyright text-center py-1 bg-dark text-white">
             © 2022 Copyright:
             <a href="/"> MDBootstrap.com</a>
         </div>
@@ -114,7 +147,6 @@
     <script src="~/js/effect.js" asp-append-version="true"></script>
     <script src="~/js/getAjax.js" asp-append-version="true"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
