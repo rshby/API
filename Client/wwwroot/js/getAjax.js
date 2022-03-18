@@ -1,6 +1,5 @@
 
 // Get Ajax
-/*
 $.ajax({
     type: "GET",
     url: "https://swapi.dev/api/people",
@@ -23,9 +22,10 @@ $.ajax({
 }).fail((err) => {
     console.log(err);
 })
-*/
+
 
 // DataTable
+/*
 $(document).ready(function () {
     $('#tableSW').DataTable({
         "ajax": "https://swapi.dev/api/people",
@@ -40,3 +40,4 @@ $(document).ready(function () {
         ]
     });
 });
+*/

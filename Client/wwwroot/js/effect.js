@@ -1,10 +1,14 @@
 document.getElementById("btn_ubah").addEventListener("click", function () {
-  document.getElementById("konten2").style.backgroundColor = "blue";
+  document.getElementById("konten2").style.backgroundColor = "lightblue";
 });
 
 document.getElementById("konten2").addEventListener("mouseenter", function () {
-  document.getElementById("konten2").style.backgroundColor = "red";
+  document.getElementById("konten2").style.backgroundColor = "coral";
 });
+
+document.getElementById("konten2").addEventListener("mouseleave", function () {
+    document.getElementById("konten2").style.backgroundColor = "white";
+})
 
 const animals = [
   { name: "Fluffy", species: "cat", class: { name: "mamalia" } },
