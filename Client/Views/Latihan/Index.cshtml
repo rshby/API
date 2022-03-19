@@ -83,35 +83,118 @@
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#tabInformation" role="tab" aria-controls="tabInformation" aria-selected="true">Information</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Species</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Abilities</a>
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="tabInformation" role="tabpanel" aria-labelledby="nav-information-tab">
                                     <div class="row">
-                                        <div class="col mt-4">
+                                        <div class="col mt-4 text-center">
                                             <h5>General Information</h5>
-                                            <h6>Name : Reo Sahobby</h6>
-                                            <h6>Id : 1</h6>
-                                            <h6>Height : 10 inch</h6>
-                                            <h6>Base Experience : 150</h6>
                                         </div>
+                                    </div>
+                                    <div class="row mt-2 text-center d-flex justify-content-center" id="isiTab1">
+                                        <!-- dipindah ke JS -->
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <h3>link 2</h3>
+                                    <!-- Judul-->
+                                    <div class="row">
+                                        <div class="col mt-4 text-center">
+                                            <h5>Species Information</h5>
+                                        </div>
+                                    </div>
+                                    <!-- Isi Tabs -->
+                                    <div class="row mt-2 text-center d-flex justify-content-center" id="tabSpecies">
+                                        <!-- dipindahkan ke JS -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <!-- Text Egg Groups -->
+                                            <div class="row">
+                                                <div class="col mt-4 text-center">
+                                                    <h5>Egg Groups</h5>
+                                                </div>
+                                            </div>
+                                            <!-- Isi Egg Groups -->
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-center" id="tabEggGroups">
+                                                    <!-- Dipindah ke JS -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                    <h3>link 3</h3>
+                                    <!-- JudulTabs 3 -->
+                                    <div class="row">
+                                        <div class="col mt-4 text-center">
+                                            <h5>Abilities</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col d-flex justify-content-center">
+                                            <div class="border rounded-circle shadow m-2 p-2" id="lingkaran_abl" style="height: 110px; width: 110px">
+                                                <p class="text_abilities font-weight-bold">overgrow</p>
+                                            </div>
+                                            <div class="border rounded-circle shadow m-2 p-2" id="lingkaran_abl" style="height: 110px; width: 110px">
+                                                <p class="text_abilities font-weight-bold">chlorophyll</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Text Special Power Abilities -->
+                                    <div class="row">
+                                        <div class="col text-center mt-4">
+                                            <h5>Special Power Abilites</h5>
+                                        </div>
+                                    </div>
+                                    <!-- Isi Special Abilities -->
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <!-- Special Attack -->
+                                            <div class="row">
+                                                <div class="col-5 text-center">
+                                                    <p class="text-right">Special Attack</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Special Defense -->
+                                            <div class="row">
+                                                <div class="col-5 text-center">
+                                                    <p class="text-right">Special Defense</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Speed -->
+                                            <div class="row">
+                                                <div class="col-5 text-center">
+                                                    <p class="text-right">Speed</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <p>PokeAPI 2022</p>
                 </div>
             </div>
         </div>

@@ -24,3 +24,15 @@ footer {
 .progress {
   height: 23px;
 }
+
+.kotak_tab {
+  background-color: #ffeeb0;
+}
+
+.text_abilities {
+  margin-top: 39% !important;
+}
+
+#lingkaran_abl {
+  background-color: #f4a3a3;
+}

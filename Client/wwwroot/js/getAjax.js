@@ -100,19 +100,73 @@ function ShowDetail(url) {
           </div>
       </div>`;
 
+      let isiTab1 = `<div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                      <h6 class="mt-3">${result.id}</h6> <br>
+                     <p><span><br></span>Id</p>
+                    </div>
+                    <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                        <h6 class="mt-3">${result.name}</h6> <br>
+                        <p><span><br></span>Name</p>
+                    </div>
+                    <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                        <h6 class="mt-3">${result.base_experience}</h6> <br>
+                        <p>Base Experience</p>
+                    </div>
+                    <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                        <h6 class="mt-3">${result.height}</h6> <br>
+                        <p>Height</p>
+                    </div>
+                    <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                        <h6 class="mt-3">${result.weight}</h6> <br>
+                        <p>Weight</p>
+                    </div>`;
+
       $("#modalPoke_kiri").html(text);
+      $("#isiTab1").html(isiTab1);
+      getSpecies(result.species.url);
 
       // cek log
-      console.log(result.height);
-      console.log(
-        `${result.stats[0].stat.name} = ${result.stats[0].base_stat}`
-      );
-      console.log(
-        `${result.stats[2].stat.name} = ${result.stats[2].base_stat}`
-      );
+      console.log(result.species.url);
     })
     .fail((e) => {
       console.log(e);
     });
-  console.log(url);
+}
+
+function getSpecies(inputUrl) {
+  $.ajax({
+    type: "GET",
+    url: inputUrl,
+    data: {},
+  })
+    .done((result) => {
+      let tabSpecies = `<div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                            <h6 class="mt-1 mb-4">${result.base_happiness}</h6>
+                            <p>Base Hapinness</p>
+                        </div>
+                        <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                            <h6 class="mt-1 mb-4">${result.capture_rate}</h6>
+                            <p>Capture Rate</p>
+                        </div>
+                        <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                            <h6 class="mt-1 mb-4">${result.color.name}</h6>
+                            <p><span><br></span>Color</p>
+                        </div>
+                        <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                            <h6 class="mt-1 mb-4">${result.habitat.name}</h6>
+                            <p><span><br></span>Habitat</p>
+                        </div>
+                        <div class="col-3 border rounded shadow m-2 p-2 kotak_tab">
+                            <h6 class="mt-1 mb-4">${result.growth_rate.name}</h6>
+                            <p>Growth Rate</p>
+                        </div>`;
+      let tabEggGroups = `<span class="badge badge-pill badge-danger p-2 mr-1">${result.egg_groups[0].name}</span>
+                          <span class="badge badge-pill badge-warning p-2 ml-1">${result.egg_groups[1].name}</span>`;
+
+      $("#tabSpecies").html(tabSpecies);
+      $("#tabEggGroups").html(tabEggGroups);
+    })
+    .fail((e) => {
+      console.log(e);
+    });
 }
