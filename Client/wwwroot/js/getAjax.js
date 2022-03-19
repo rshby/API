@@ -55,7 +55,7 @@ $.ajax({
       text += `<tr>
                 <th scope="row">${index + 1}</th>
                 <td>${data.name}</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPokemon" onclick="ShowDetail('${
+                <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalPokemon" onclick="ShowDetail('${
                   data.url
                 }')">Detail</button></td>
                 </tr>`;
@@ -120,10 +120,26 @@ function ShowDetail(url) {
                         <h6 class="mt-3">${result.weight}</h6> <br>
                         <p>Weight</p>
                     </div>`;
+      let isiAbilities = ``;
+      $.each(result.abilities, function (index, data) {
+        isiAbilities += `<div class="col-3 m-2">
+                          <div class="border rounded-circle shadow" id="lingkaran_abl" style="height: 107px; width: 107px;">
+                              <p class="text_abilities font-weight-bold">${data.ability.name}</p>
+                          </div>
+                         </div>`;
+      });
+
+      let spAttack = `<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: ${result.stats[3].base_stat}%;" aria-valuenow="${result.stats[3].base_stat}" aria-valuemin="0" aria-valuemax="100">${result.stats[3].base_stat}%</div>`;
+      let spDefense = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${result.stats[4].base_stat}%;" aria-valuenow="${result.stats[4].base_stat}" aria-valuemin="0" aria-valuemax="100">${result.stats[4].base_stat}%</div>`;
+      let spSpeed = `<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: ${result.stats[5].base_stat}%;" aria-valuenow="${result.stats[5].base_stat}" aria-valuemin="0" aria-valuemax="100">${result.stats[5].base_stat}%</div>`;
 
       $("#modalPoke_kiri").html(text);
       $("#isiTab1").html(isiTab1);
       getSpecies(result.species.url);
+      $("#isiAbilities").html(isiAbilities);
+      $("#spAttack").html(spAttack);
+      $("#spDefense").html(spDefense);
+      $("#spSpeed").html(spSpeed);
 
       // cek log
       console.log(result.species.url);
