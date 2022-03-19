@@ -109,3 +109,4 @@ C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Client.pdb
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Client.genruntimeconfig.cache
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\TestCors\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Latihan\Index.cshtml.g.cs
+C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Employees\Index.cshtml.g.cs

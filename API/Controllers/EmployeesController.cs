@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         // Get All MasterEMployee
-        [Authorize(Roles ="Director, Manager")]
+        //[Authorize(Roles ="Director, Manager")]
         [HttpGet("master")]
         public ActionResult GetAllMasterEmployee()
         {
