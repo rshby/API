@@ -31,6 +31,7 @@ $.ajax({
   });
   */
 
+// Menampilkan Data Menggunakan DataTable
 $(document).ready(function () {
     $("#tableEmployees").DataTable({
         "ajax": {
