@@ -34,6 +34,10 @@ $.ajax({
 // Menampilkan Data Menggunakan DataTable
 $(document).ready(function () {
     $("#tableEmployees").DataTable({
+        dom: "Bftrip",
+        buttons: [
+            'pdf'
+        ],
         "ajax": {
             "url": "https://localhost:44300/api/employees/master",
             "dataSrc": ""
@@ -71,4 +75,6 @@ $(document).ready(function () {
         ]
     });
 });
+
+
 
