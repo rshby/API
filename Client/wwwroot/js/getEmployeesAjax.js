@@ -36,7 +36,18 @@ $(document).ready(function () {
     $("#tableEmployees").DataTable({
         dom: "Bftrip",
         buttons: [
-            'pdf'
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            }
         ],
         "ajax": {
             "url": "https://localhost:44300/api/employees/master",
