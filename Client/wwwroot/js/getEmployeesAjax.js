@@ -37,16 +37,28 @@ $(document).ready(function () {
         dom: "Bftrip",
         buttons: [
             {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                }
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    }
+                ]
             }
         ],
         "ajax": {
@@ -55,8 +67,8 @@ $(document).ready(function () {
         },
         "columns": [
             {
-                render: function (data, type, row) {
-                    return row.nik.substring(6);
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
             { "data": "nik" },
@@ -87,5 +99,53 @@ $(document).ready(function () {
     });
 });
 
+// Menampilkan Universities Pada Form Insert
+$.ajax({
+    type: "GET",
+    url: "https://localhost:44300/api/universities",
+    data: {}
+}).done((result) => {
+    let pilihanUniv = ``;
+    $.each(result, function (index, data) {
+        pilihanUniv += `<option value="${data.id}">${data.name}</option>`;
+    });
+    $("#inputUniversity").html(pilihanUniv);
+}).fail((e) => {
+    console.log(e);
+})
+
+// Function Insert Data Employee
+function InsertDataEmployee() {
+    let obj = new Object();
+    obj.firstName = $('#inputFirstName').val();
+    obj.lastName = $('#inputLastName').val();
+    obj.phone = $('#inputPhone').val();
+    obj.birthDate = $('#inputBirthDate').val();
+    obj.salary = parseInt($('#inputSalary').val());
+    obj.email = $('#inputEmail').val();
+    obj.gender = parseInt($('#inputGender').val());
+    obj.password = $('#inputPassword').val();
+    obj.degree = $('#inputDegree').val();
+    obj.gpa = $('#inputGPA').val();
+    obj.university_id = parseInt($('#inputUniversity').val());
+
+    // Insert Menggunakan Ajax
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "https://localhost:44300/api/accounts/register",
+        dataType: "json",
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        alert(`Data Employee Berhasil Ditambah`);
+        window.location.reload();
+    }).fail((error) => {
+        alert(`Data Gagal Ditambah`);
+        console.log(error);
+    })
+}
 
 
