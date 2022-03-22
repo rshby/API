@@ -33,7 +33,7 @@ namespace API.Repository.Data
                     Phone = d.eaped.eap.ea.e.Phone,
                     Gender = d.eaped.eap.ea.e.Gender.ToString(),
                     Email = d.eaped.eap.ea.e.Email,
-                    BirthDate = d.eaped.eap.ea.e.BirthDate,
+                    BirthDate = d.eaped.eap.ea.e.BirthDate.ToString("dd MMMM yyyy"),
                     Salary = d.eaped.eap.ea.e.Salary,
                     Education_Id = d.eaped.eap.p.Education_Id,
                     GPA = d.eaped.ed.GPA,
