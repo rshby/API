@@ -208,24 +208,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" id="updatePhone" value="083863890419" required>
-                                    <div class="invalid-tooltip">
-                                        Phone Harus Diisi!
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Form Kanan -->
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Salary</label>
-                                    <input type="text" class="form-control" id="updateSalary" value="5600000" required>
-                                    <div class="invalid-tooltip">
-                                        Salary Harus Diisi!
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" class="form-control" id="updateEmail" value="reoshby@gmail.com" required>
                                     <div class="invalid-tooltip">
@@ -233,12 +215,30 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Form Kanan -->
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" id="updatePhone" value="083863890419" required>
+                                    <div class="invalid-tooltip">
+                                        Phone Harus Diisi!
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Salary</label>
+                                    <input type="text" class="form-control" id="updateSalary" value="5600000" required>
+                                    <div class="invalid-tooltip">
+                                        Salary Harus Diisi!
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <!-- End Form -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" onclick="UpdateDataEmployee()" class="btn btn-success">Update Data</button>
+                <div class="modal-footer" id="modalFooterUpdate">
+                    <!-- Dipindah ke JS -->
                 </div>
             </div>
         </div>
@@ -280,5 +280,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/datatables.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

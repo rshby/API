@@ -105,7 +105,7 @@ $(document).ready(function () {
                     return `<button type="button" class="btn btn-warning d-inline" data-toggle="modal" data-target="#modalUpdate" onclick="DetailUpdate('${row.nik}')">
                               Update
                             </button>
-                            <button type="button" class="btn btn-danger d-inline">
+                            <button type="button" class="btn btn-danger d-inline" onclick="DeleteData('${row.nik}')">
                               Delete
                             </button>`;
                 }
@@ -155,69 +155,159 @@ function InsertDataEmployee() {
         dataType: "json",
         data: JSON.stringify(obj)
     }).done((result) => {
-        alert(`Data Employee Berhasil Ditambah`);
-        window.location.reload();
+        Swal.fire({
+            icon: 'success',
+            title: 'Selamat',
+            text: 'Data Berhasil Ditambah',
+            showConfirmButton: false,
+            timer: 1560,
+            footer: '<a href="">Why do I have this issue?</a>'
+        }).then(function () {
+            window.location.reload();
+        });
     }).fail((error) => {
-        alert(`Data Gagal Ditambah`);
-        console.log(error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Opps...',
+            text: 'Data Gagal Ditambah',
+            showConfirmButton: false,
+            timer: 1560,
+            footer: '<a href="">Why do I have this issue?</a>'
+        }).then(function () {
+            window.location.reload();
+        });
     })
 }
 
-// Detail Modal Update
-function DetailUpdate(inputURL) {
+// function Get Data Employee By NIK
+function GetDataEmployeeByNIK(inputNIK) {
+    let dataEmp = {};
     $.ajax({
         type: "GET",
-        url: `https://localhost:44300/api/employees/${inputURL}`,
+        url: `https://localhost:44300/api/employees/${inputNIK}`,
+        async: false,
         data: {}
     }).done((result) => {
-        let isiModal = `<div class="row">
-                            <!-- Form kiri -->
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" id="updateFirstName" value="${result.firstName}" required>
-                                    <div class="invalid-tooltip">
-                                        First Name Harus Diisi!
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" id="updateLastName" value="${result.lastName}" required>
-                                    <div class="invalid-tooltip">
-                                        Last Name Harus Diisi!
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" id="updatePhone" value="${result.phone}" required>
-                                    <div class="invalid-tooltip">
-                                        Phone Harus Diisi!
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Form Kanan -->
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Salary</label>
-                                    <input type="text" class="form-control" id="updateSalary" value="${result.salary}" required>
-                                    <div class="invalid-tooltip">
-                                        Salary Harus Diisi!
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" id="updateEmail" value="${result.email}" required>
-                                    <div class="invalid-tooltip">
-                                        Email Harus Diisi!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-        
-        $("#formUpdateDataEmployee").html(isiModal);
+        dataEmp.nik = result.nik;
+        dataEmp.firstName = result.firstName;
+        dataEmp.lastName = result.lastName;
+        dataEmp.phone = result.phone;
+        dataEmp.birthDate = result.birthDate;
+        dataEmp.salary = result.salary;
+        dataEmp.gender = result.gender;
+        dataEmp.email = result.email;
     }).fail((e) => {
         console.log(e);
+    })
+    return dataEmp;
+}
+
+// Detail Modal Update
+function DetailUpdate(inputNIK) {
+    let dataEmp = GetDataEmployeeByNIK(inputNIK);
+
+    document.getElementById("updateFirstName").value = dataEmp.firstName;
+    document.getElementById("updateLastName").value = dataEmp.lastName;
+    document.getElementById("updatePhone").value = dataEmp.phone;
+    document.getElementById("updateSalary").value = dataEmp.salary;
+    document.getElementById("updateEmail").value = dataEmp.email;
+
+    document.getElementById("modalFooterUpdate").innerHTML = `<button type="button" id="buttonUpdateDataEmployee" onclick="UpdateDataEmployee('${dataEmp.nik}')" class="btn btn-success">Update Data</button>`;
+}
+
+// Update Data
+function UpdateDataEmployee(inputNIK) {
+    let dataEmp = GetDataEmployeeByNIK(inputNIK);
+    let data = {};
+    data.nik = dataEmp.nik;
+    data.firstName = $("#updateFirstName").val();
+    data.lastName = $("#updateLastName").val();
+    data.email = $("#updateEmail").val();
+    data.phone = $("#updatePhone").val();
+    data.birthDate = dataEmp.birthDate;
+    data.salary = $("#updateSalary").val();
+    data.gender = dataEmp.gender;
+
+    // Ajax untuk Update Data
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        dataType: "json",
+        url: "https://localhost:44300/api/employees",
+        data: JSON.stringify(data)
+    }).done((result) => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Selamat',
+            text: 'Update Data Berhasil',
+            showConfirmButton: false,
+            timer: 1560,
+            footer: '<a href="">Why do I have this issue?</a>'
+        }).then(function () {
+            window.location.reload();
+        });
+    }).fail((e) => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Opps...',
+            text: 'Update Data Gagal',
+            showConfirmButton: false,
+            timer: 1560,
+            footer: '<a href="">Why do I have this issue?</a>'
+        }).then(function () {
+            window.location.reload();
+        });
     });
 }
+
+// Delete Data
+function DeleteData(inputNIK) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ml-2',
+            cancelButton: 'btn btn-danger mr-2'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "DELETE",
+                url: `https://localhost:44300/api/employees/${inputNIK}`,
+                data: {}
+            }).done((result) => {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                ).then(function () {
+                    window.location.reload();
+                });
+            });
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            ).then(function () {
+                window.location.reload();
+            });
+        }
+    });
+}
+
 
