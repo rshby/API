@@ -102,8 +102,11 @@ $(document).ready(function () {
             { "data": "gpa" },
             {
                 render: function (data, type, row) {
-                    return `<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                    return `<button type="button" class="btn btn-warning d-inline" data-toggle="modal" data-target="#modalUpdate" onclick="DetailUpdate('${row.nik}')">
                               Update
+                            </button>
+                            <button type="button" class="btn btn-danger d-inline">
+                              Delete
                             </button>`;
                 }
             }
@@ -160,4 +163,61 @@ function InsertDataEmployee() {
     })
 }
 
+// Detail Modal Update
+function DetailUpdate(inputURL) {
+    $.ajax({
+        type: "GET",
+        url: `https://localhost:44300/api/employees/${inputURL}`,
+        data: {}
+    }).done((result) => {
+        let isiModal = `<div class="row">
+                            <!-- Form kiri -->
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" id="updateFirstName" value="${result.firstName}" required>
+                                    <div class="invalid-tooltip">
+                                        First Name Harus Diisi!
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" id="updateLastName" value="${result.lastName}" required>
+                                    <div class="invalid-tooltip">
+                                        Last Name Harus Diisi!
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" id="updatePhone" value="${result.phone}" required>
+                                    <div class="invalid-tooltip">
+                                        Phone Harus Diisi!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Kanan -->
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Salary</label>
+                                    <input type="text" class="form-control" id="updateSalary" value="${result.salary}" required>
+                                    <div class="invalid-tooltip">
+                                        Salary Harus Diisi!
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" id="updateEmail" value="${result.email}" required>
+                                    <div class="invalid-tooltip">
+                                        Email Harus Diisi!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+        
+        $("#formUpdateDataEmployee").html(isiModal);
+    }).fail((e) => {
+        console.log(e);
+    });
+}
 
