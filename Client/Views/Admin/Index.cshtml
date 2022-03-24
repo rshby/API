@@ -51,74 +51,113 @@
             </div>
             <div class="modal-body">
                 <!-- Form-->
-                <form>
+                <form class="needs-validation" novalidate id="formInsertDataEmployee">
+                    <!-- Formnya -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" id="inputFirstName">
+                                <input type="text" class="form-control" id="inputFirstName" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a First Name.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" id="inputLastName">
+                                <input type="text" class="form-control" id="inputLastName" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Last Name.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="text" class="form-control" id="inputPhone">
+                                <input type="text" class="form-control" id="inputPhone" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Phone Number.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Birth Date</label>
-                                <input type="date" class="form-control input-group-sm" id="inputBirthDate">
+                                <input type="date" class="form-control input-group-sm" id="inputBirthDate" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Birth Date.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Salary</label>
-                                <input type="text" class="form-control" id="inputSalary">
+                                <input type="text" class="form-control" id="inputSalary" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Salary.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" id="inputEmail">
+                                <input type="email" class="form-control" id="inputEmail" required>
+                                <div class="invalid-feedback">
+                                    Please Insert an Email.
+                                </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Gender</label>
-                                <select class="form-control" id="inputGender">
+                                <select class="form-control" id="inputGender" required>
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Please Insert a Gender.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" id="inputPassword">
+                                <input type="password" class="form-control" id="inputPassword" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Password.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Degree</label>
-                                <select class="form-control" id="inputDegree">
+                                <select class="form-control" id="inputDegree" required>
                                     <option value="" disabled selected>Select Degree</option>
                                     <option value="S1">S1</option>
                                     <option value="S2">S2</option>
                                     <option value="S3">S3</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Please Insert a Degree.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>GPA</label>
-                                <input type="text" class="form-control" id="inputGPA">
+                                <input type="text" class="form-control" id="inputGPA" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a GPA.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>University</label>
-                                <select class="form-control" id="inputUniversity">
+                                <select class="form-control" id="inputUniversity" required>
                                     <option value="" disabled selected>Select Universities</option>
                                     <!-- Ditampilkan dengan JS-->
                                 </select>
+                                <div class="invalid-feedback">
+                                    Please Insert a University.
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <!-- End Formnya -->
+
+                    <!-- Button Insert Data Employee -->
+                    <div class="row">
+                        <div class="col d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success mt-5" onclick="InsertDataEmployee()">Add Data</button>
                         </div>
                     </div>
                 </form>
                 <!-- End Form -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="InsertDataEmployee()">Add Data</button>
             </div>
         </div>
     </div>
@@ -136,29 +175,29 @@
             </div>
             <div class="modal-body">
                 <!-- Form -->
-                <form class="needs-validation" id="formUpdateDataEmployee">
-                    <div class="row">
+                <form role="form" method="PUT" class="needs-validation" id="formUpdateDataEmployee" novalidate>
+                    <div class="form-row">
                         <!-- Form kiri -->
                         <div class="col">
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" id="updateFirstName" value="Reo" required>
-                                <div class="invalid-tooltip">
-                                    First Name Harus Diisi!
+                                <label class="control-label">First Name</label>
+                                <input type="text" class="form-control" id="updateFirstName" value="" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a First Name.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" id="updateLastName" value="Sahobby" required>
-                                <div class="invalid-tooltip">
-                                    Last Name Harus Diisi!
+                                <input type="text" class="form-control" id="updateLastName" value="" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Last Name.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" id="updateEmail" value="reoshby@gmail.com" required>
-                                <div class="invalid-tooltip">
-                                    Email Harus Diisi!
+                                <input type="email" class="form-control" id="updateEmail" value="" required>
+                                <div class="invalid-feedback">
+                                    Please Insert an Email.
                                 </div>
                             </div>
                         </div>
@@ -167,25 +206,29 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="text" class="form-control" id="updatePhone" value="083863890419" required>
-                                <div class="invalid-tooltip">
-                                    Phone Harus Diisi!
+                                <input type="text" class="form-control" id="updatePhone" value="" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Phone Number.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Salary</label>
-                                <input type="text" class="form-control" id="updateSalary" value="5600000" required>
-                                <div class="invalid-tooltip">
-                                    Salary Harus Diisi!
+                                <input type="text" class="form-control" id="updateSalary" value="" required>
+                                <div class="invalid-feedback">
+                                    Please Insert a Salary.
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Button Update -->
+                    <div class="row">
+                        <div class="col d-flex justify-content-end" id="buttonUpdateDataEmployee">
+                            <!-- Dipindahkan ke JS-->
+                        </div>
+                    </div>
                 </form>
                 <!-- End Form -->
-            </div>
-            <div class="modal-footer" id="modalFooterUpdate">
-                <!-- Dipindah ke JS -->
             </div>
         </div>
     </div>

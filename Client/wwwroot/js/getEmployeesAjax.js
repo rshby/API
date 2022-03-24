@@ -144,39 +144,47 @@ function InsertDataEmployee() {
     obj.gpa = $('#inputGPA').val();
     obj.university_id = parseInt($('#inputUniversity').val());
 
-    // Insert Menggunakan Ajax
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        url: "https://localhost:44300/api/accounts/register",
-        dataType: "json",
-        data: JSON.stringify(obj)
-    }).done((result) => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Selamat',
-            text: 'Data Berhasil Ditambah',
-            showConfirmButton: false,
-            timer: 1560,
-            footer: '<a href="">Why do I have this issue?</a>'
-        }).then(function () {
-            window.location.reload();
-        });
-    }).fail((error) => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Opps...',
-            text: 'Data Gagal Ditambah',
-            showConfirmButton: false,
-            timer: 1560,
-            footer: '<a href="">Why do I have this issue?</a>'
-        }).then(function () {
-            window.location.reload();
-        });
-    })
+    $("#formInsertDataEmployee").validate({
+        errorPlacement: function (error, element) {
+
+        }
+    });
+
+    if ($("formInsertDataEmployee").valid()) {
+        // Insert Menggunakan Ajax
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "https://localhost:44300/api/accounts/register",
+            dataType: "json",
+            data: JSON.stringify(obj)
+        }).done((result) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Selamat',
+                text: 'Data Berhasil Ditambah',
+                showConfirmButton: false,
+                timer: 1560,
+                footer: '<a href="">Why do I have this issue?</a>'
+            }).then(function () {
+                window.location.reload();
+            });
+        }).fail((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps...',
+                text: 'Data Gagal Ditambah',
+                showConfirmButton: false,
+                timer: 1560,
+                footer: '<a href="">Why do I have this issue?</a>'
+            }).then(function () {
+                window.location.reload();
+            });
+        })
+    }
 }
 
 // function Get Data Employee By NIK
@@ -212,7 +220,7 @@ function DetailUpdate(inputNIK) {
     document.getElementById("updateSalary").value = dataEmp.salary;
     document.getElementById("updateEmail").value = dataEmp.email;
 
-    document.getElementById("modalFooterUpdate").innerHTML = `<button type="button" id="buttonUpdateDataEmployee" onclick="UpdateDataEmployee('${dataEmp.nik}')" class="btn btn-success">Update Data</button>`;
+    document.getElementById("buttonUpdateDataEmployee").innerHTML = `<button type="submit" onclick="UpdateDataEmployee('${dataEmp.nik}')" class="btn btn-success mt-5">Update Data</button>`;
 }
 
 // Update Data
@@ -228,42 +236,47 @@ function UpdateDataEmployee(inputNIK) {
     data.salary = $("#updateSalary").val();
     data.gender = dataEmp.gender;
 
-    $("#formUpdateDataEmployee").validate();
+    $("#formUpdateDataEmployee").validate({
+        errorPlacement: function (error, element) {
 
-    
-    // Ajax untuk Update Data
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "PUT",
-        dataType: "json",
-        url: "https://localhost:44300/api/employees",
-        data: JSON.stringify(data)
-    }).done((result) => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Selamat',
-            text: 'Update Data Berhasil',
-            showConfirmButton: false,
-            timer: 1560,
-            footer: '<a href="">Why do I have this issue?</a>'
-        }).then(function () {
-            window.location.reload();
-        });
-    }).fail((e) => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Opps...',
-            text: 'Update Data Gagal',
-            showConfirmButton: false,
-            timer: 1560,
-            footer: '<a href="">Why do I have this issue?</a>'
-        }).then(function () {
-            window.location.reload();
-        });
+        }
     });
+
+    if ($("#formUpdateDataEmployee").valid()) {
+        // Ajax untuk Update Data
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            dataType: "json",
+            url: "https://localhost:44300/api/employees",
+            data: JSON.stringify(data)
+        }).done((result) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Selamat',
+                text: 'Update Data Berhasil',
+                showConfirmButton: false,
+                timer: 1560,
+                footer: '<a href="">Why do I have this issue?</a>'
+            }).then(function () {
+                window.location.reload();
+            });
+        }).fail((e) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps...',
+                text: 'Update Data Gagal',
+                showConfirmButton: false,
+                timer: 1560,
+                footer: '<a href="">Why do I have this issue?</a>'
+            }).then(function () {
+                window.location.reload();
+            });
+        });
+    }
 }
 
 // Delete Data
@@ -312,5 +325,23 @@ function DeleteData(inputNIK) {
         }
     });
 }
+
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
 
 
