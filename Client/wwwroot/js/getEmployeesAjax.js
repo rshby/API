@@ -228,6 +228,9 @@ function UpdateDataEmployee(inputNIK) {
     data.salary = $("#updateSalary").val();
     data.gender = dataEmp.gender;
 
+    $("#formUpdateDataEmployee").validate();
+
+    
     // Ajax untuk Update Data
     $.ajax({
         headers: {
