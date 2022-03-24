@@ -259,7 +259,7 @@ function UpdateDataEmployee(inputNIK) {
                 title: 'Selamat',
                 text: 'Update Data Berhasil',
                 showConfirmButton: false,
-                timer: 1560,
+                timer: 1580,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
                 window.location.reload();
@@ -270,7 +270,7 @@ function UpdateDataEmployee(inputNIK) {
                 title: 'Opps...',
                 text: 'Update Data Gagal',
                 showConfirmButton: false,
-                timer: 1560,
+                timer: 1580,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
                 window.location.reload();
