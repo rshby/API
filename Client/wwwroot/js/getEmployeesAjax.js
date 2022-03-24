@@ -103,10 +103,10 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     return `<button type="button" class="btn btn-warning d-inline" data-toggle="modal" data-target="#modalUpdate" onclick="DetailUpdate('${row.nik}')">
-                              Update
+                              <i class="fa-solid fa-file-pen"></i>
                             </button>
-                            <button type="button" class="btn btn-danger d-inline" onclick="DeleteData('${row.nik}')">
-                              Delete
+                            <button type="button" class="btn btn-danger d-inline mt-1" onclick="DeleteData('${row.nik}')">
+                              <i class="fa-solid fa-trash-can"></i>
                             </button>`;
                 }
             }
