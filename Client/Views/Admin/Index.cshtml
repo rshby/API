@@ -1,11 +1,191 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "LatihanBelajar";
-    Layout = "_AdminLayout";
+    Layout = "_LayoutAdmin";
 }
+
+<!-- Button Insert Data-->
+<div class="row">
+    <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-success align-items-right mb-2" data-toggle="modal" data-target="#modalInsertData">
+            Add Employee
+        </button>
+    </div>
+</div>
 
 <div class="row">
     <div class="col">
-        <h1>Contoh</h1>
+        <table class="table" id="tableEmployees">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">NIK</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Birth Date</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">University</th>
+                    <th scope="col">Degree</th>
+                    <th scope="col">GPA</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dipindahkan ke JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Insert (di luar container)-->
+<div class="modal fade bd-example-modal-lg" id="modalInsertData" tabindex="-1" role="dialog" aria-labelledby="modalInsertDataLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4>Form Insert Data Employee</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form-->
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" id="inputFirstName">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" id="inputLastName">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" id="inputPhone">
+                            </div>
+                            <div class="form-group">
+                                <label>Birth Date</label>
+                                <input type="date" class="form-control input-group-sm" id="inputBirthDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="text" class="form-control" id="inputSalary">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="inputEmail">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select class="form-control" id="inputGender">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" id="inputPassword">
+                            </div>
+                            <div class="form-group">
+                                <label>Degree</label>
+                                <select class="form-control" id="inputDegree">
+                                    <option value="" disabled selected>Select Degree</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>GPA</label>
+                                <input type="text" class="form-control" id="inputGPA">
+                            </div>
+                            <div class="form-group">
+                                <label>University</label>
+                                <select class="form-control" id="inputUniversity">
+                                    <option value="" disabled selected>Select Universities</option>
+                                    <!-- Ditampilkan dengan JS-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="InsertDataEmployee()">Add Data</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update (di luar container)-->
+<div class="modal fade bd-example-modal-lg" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalUpdateLabel">Update Data Employee</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                <form class="needs-validation" id="formUpdateDataEmployee" novalidate>
+                    <div class="row">
+                        <!-- Form kiri -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" id="updateFirstName" value="Reo" required>
+                                <div class="invalid-tooltip">
+                                    First Name Harus Diisi!
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" id="updateLastName" value="Sahobby" required>
+                                <div class="invalid-tooltip">
+                                    Last Name Harus Diisi!
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="updateEmail" value="reoshby@gmail.com" required>
+                                <div class="invalid-tooltip">
+                                    Email Harus Diisi!
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Kanan -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" id="updatePhone" value="083863890419" required>
+                                <div class="invalid-tooltip">
+                                    Phone Harus Diisi!
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="text" class="form-control" id="updateSalary" value="5600000" required>
+                                <div class="invalid-tooltip">
+                                    Salary Harus Diisi!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+            <div class="modal-footer" id="modalFooterUpdate">
+                <!-- Dipindah ke JS -->
+            </div>
+        </div>
     </div>
 </div>
