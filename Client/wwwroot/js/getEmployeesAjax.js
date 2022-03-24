@@ -150,7 +150,7 @@ function InsertDataEmployee() {
         }
     });
 
-    if ($("formInsertDataEmployee").valid()) {
+    if ($("#formInsertDataEmployee").valid()) {
         // Insert Menggunakan Ajax
         $.ajax({
             headers: {
@@ -170,7 +170,8 @@ function InsertDataEmployee() {
                 timer: 1560,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
-                window.location.reload();
+                $('#modalInsertData').modal('hide');
+                $('#tableEmployees').DataTable().ajax.reload();
             });
         }).fail((error) => {
             Swal.fire({
@@ -181,7 +182,8 @@ function InsertDataEmployee() {
                 timer: 1560,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
-                window.location.reload();
+                $('#modalInsertData').modal('hide');
+                $('#tableEmployees').DataTable().ajax.reload();
             });
         })
     }
@@ -262,7 +264,8 @@ function UpdateDataEmployee(inputNIK) {
                 timer: 1580,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
-                window.location.reload();
+                $('#modalUpdate').modal('hide');
+                $('#tableEmployees').DataTable().ajax.reload();
             });
         }).fail((e) => {
             Swal.fire({
@@ -273,7 +276,8 @@ function UpdateDataEmployee(inputNIK) {
                 timer: 1580,
                 footer: '<a href="">Why do I have this issue?</a>'
             }).then(function () {
-                window.location.reload();
+                $('#modalUpdate').modal('hide');
+                $('#tableEmployees').DataTable().ajax.reload();
             });
         });
     }
@@ -309,7 +313,7 @@ function DeleteData(inputNIK) {
                     'Your file has been deleted.',
                     'success'
                 ).then(function () {
-                    window.location.reload();
+                    $('#tableEmployees').DataTable().ajax.reload();
                 });
             });
         } else if (
@@ -320,7 +324,7 @@ function DeleteData(inputNIK) {
                 'Your imaginary file is safe :)',
                 'error'
             ).then(function () {
-                window.location.reload();
+                $('#tableEmployees').DataTable().ajax.reload();
             });
         }
     });
