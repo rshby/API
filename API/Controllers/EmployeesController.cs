@@ -53,5 +53,27 @@ namespace API.Controllers
         {
             return Ok("Test Cors Berhasil");
         }
+
+        [HttpGet("gender")]
+        public ActionResult GetGender()
+        {
+            try
+            {
+                var data = _empRepo.getGender();
+                return Ok(new
+                {
+                    message = "sucess",
+                    data = data
+                });
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new
+                {
+                    mesasage = e.Message
+                });
+            }
+        }
     }
 }

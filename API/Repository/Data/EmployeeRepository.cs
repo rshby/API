@@ -43,5 +43,16 @@ namespace API.Repository.Data
 
             return data;
         }
+
+        public GenderVM getGender()
+        {
+            var data = new GenderVM()
+            {
+                jumlah_total = myContext.Employees.Count(),
+                jumlah_pria = myContext.Employees.Count(e => e.Gender == 0),
+                jumlah_wanita = myContext.Employees.Count(e => e.Gender > 0)
+            };
+            return data;
+        }
     }
 }
