@@ -55,11 +55,15 @@ let pieOptions = {
             }
         }
     },
-    series: [GetMasterEmployees().filter(a => a.gender == "Male").length, GetMasterEmployees().filter(a => a.gender == "Female").length],
+    series: [
+        GetMasterEmployees().filter(a => a.gender == "Male").length,  // jumlah data yang gendernya laki
+        GetMasterEmployees().filter(a => a.gender == "Female").length // jumlah data yang gendernya perempuan
+    ],
     labels: ['Laki-Laki', 'Perempuan']
 }
 
 var pieChart = new ApexCharts(document.querySelector("#pieChartGender"), pieOptions);
 pieChart.render();
 
+// Cek Data
 console.log(GetMasterEmployees().filter(a => a.universityName == "Universitas Indonesia")[0].universityName)
