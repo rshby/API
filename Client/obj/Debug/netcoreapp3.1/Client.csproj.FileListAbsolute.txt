@@ -112,3 +112,4 @@ C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Employees\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Chart.cshtml.g.cs
