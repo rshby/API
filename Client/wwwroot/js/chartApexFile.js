@@ -1,4 +1,19 @@
 
+function GetMasterEmployees() {
+    let data = {}
+        $.ajax({
+            type: "GET",
+            url: "https://localhost:44300/api/employees/master",
+            async: false,
+            data: {}
+        }).done((result) => {
+            data = result;
+        }).fail((e) => {
+            console.log(e);
+        })
+    return data;
+}
+
 // Line Chart
 let barOptions = {
     chart: {
@@ -40,9 +55,11 @@ let pieOptions = {
             }
         }
     },
-    series: [21, 23],
+    series: [GetMasterEmployees().filter(a => a.gender == "Male").length, GetMasterEmployees().filter(a => a.gender == "Female").length],
     labels: ['Laki-Laki', 'Perempuan']
 }
 
 var pieChart = new ApexCharts(document.querySelector("#pieChartGender"), pieOptions);
 pieChart.render();
+
+console.log(GetMasterEmployees().filter(a => a.universityName == "Universitas Indonesia")[0].universityName)
