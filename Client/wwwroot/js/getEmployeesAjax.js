@@ -73,7 +73,7 @@ $(document).ready(function () {
             }
         ],
         "ajax": {
-            "url": "https://localhost:44300/api/employees/master",
+            "url": "../employees/getallprofile",
             "dataSrc": ""
         },
         "columns": [
@@ -83,7 +83,7 @@ $(document).ready(function () {
                 }
             },
             { "data": "nik" },
-            { "data": "fullName" },
+            { "data": "fullname" },
             {
                 render: function (data, type, row) {
                     return `+62${row.phone.substring(1)}`
@@ -158,7 +158,7 @@ function InsertDataEmployee() {
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            url: "https://localhost:44300/api/accounts/register",
+            url: "../employees/register/",
             dataType: "json",
             data: JSON.stringify(obj)
         }).done((result) => {
@@ -245,6 +245,7 @@ function UpdateDataEmployee(inputNIK) {
     });
 
     if ($("#formUpdateDataEmployee").valid()) {
+        console.log(data);
         // Ajax untuk Update Data
         $.ajax({
             headers: {
@@ -252,10 +253,12 @@ function UpdateDataEmployee(inputNIK) {
                 'Content-Type': 'application/json'
             },
             type: "PUT",
+            contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: "https://localhost:44300/api/employees",
+            url: "../employees/update/",
             data: JSON.stringify(data)
         }).done((result) => {
+            console.log(result);
             Swal.fire({
                 icon: 'success',
                 title: 'Selamat',
@@ -305,7 +308,7 @@ function DeleteData(inputNIK) {
         if (result.isConfirmed) {
             $.ajax({
                 type: "DELETE",
-                url: `https://localhost:44300/api/employees/${inputNIK}`,
+                url: `../employees/delete/${inputNIK}`,
                 data: {}
             }).done((result) => {
                 swalWithBootstrapButtons.fire(
