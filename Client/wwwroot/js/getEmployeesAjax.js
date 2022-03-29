@@ -255,7 +255,7 @@ function UpdateDataEmployee(inputNIK) {
             type: "PUT",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: "../employees/update/",
+            url: "../employees/update",
             data: JSON.stringify(data)
         }).done((result) => {
             console.log(result);
