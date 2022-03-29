@@ -170,3 +170,4 @@ C:\Users\ASUS\Documents\Metrodata\API\Client\bin\Debug\netcoreapp3.1\runtimes\wi
 C:\Users\ASUS\Documents\Metrodata\API\Client\bin\Debug\netcoreapp3.1\API.dll
 C:\Users\ASUS\Documents\Metrodata\API\Client\bin\Debug\netcoreapp3.1\API.pdb
 C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Client.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ASUS\Documents\Metrodata\API\Client\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
