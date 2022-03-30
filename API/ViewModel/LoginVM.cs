@@ -1,4 +1,6 @@
-﻿namespace API.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API.ViewModel
 {
     public class LoginVM
     {

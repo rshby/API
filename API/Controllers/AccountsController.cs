@@ -70,7 +70,7 @@ namespace API.Controllers
         }
 
         // Login
-        [HttpGet("login")]
+        [HttpPost("login")]
         public ActionResult Login(LoginVM inputData)
         {
             try
