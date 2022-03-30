@@ -90,6 +90,10 @@ namespace Client
                 {
                     response.Redirect("/notfound");
                 }
+                else if (response.StatusCode.Equals((int)HttpStatusCode.Forbidden))
+                {
+                    response.Redirect("/forbidden");
+                }
             });
 
             app.UseSession();

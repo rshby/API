@@ -2,7 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Error 404</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>401 Unauthorized</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+</head>
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-warning"> 404 Not Found</h2>
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Unauthorized Access.</h3>
+            <p>Kamu tidak punya izin untuk mengakses halaman ini.</p>
+            <p>Login terlebih Dahulu!</p>
+            <p id="countdown">Ke halaman login dalam 5</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    let countdown = 4;
+    setInterval(function () {
+        document.getElementById("countdown").innerHTML = "Ke halaman login dalam " + countdown;
+        countdown--;
+
+        if (countdown == -1) {
+            location.href = "/login"
+        }
+    }, 1000)
+</script>
