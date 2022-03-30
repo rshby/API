@@ -33,7 +33,7 @@ namespace Client.Repositories.Data
             JWTokenVM token = null;
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
-            var result = await httpClient.PostAsync(address + request + "login", content);
+            var result = await httpClient.PostAsync(request + "login", content);
 
             string apiResponse = await result.Content.ReadAsStringAsync();
             token = JsonConvert.DeserializeObject<JWTokenVM>(apiResponse);

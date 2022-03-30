@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +39,7 @@ namespace Client
             services.AddControllersWithViews();
             services.AddScoped<EmployeeRepository>();
             services.AddScoped<Address>();
+            services.AddScoped<LoginRepository>();
 
             services.AddAuthentication(auth => {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -75,6 +77,20 @@ namespace Client
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseStatusCodePages(async context => {
+                var request = context.HttpContext.Request;
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode.Equals((int)HttpStatusCode.Unauthorized))
+                {
+                    response.Redirect("/unauthorized");
+                }
+                else if (response.StatusCode.Equals((int)HttpStatusCode.NotFound))
+                {
+                    response.Redirect("/notfound");
+                }
+            });
 
             app.UseSession();
             app.Use(async (context, next) =>

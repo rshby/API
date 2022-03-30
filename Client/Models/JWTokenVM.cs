@@ -2,7 +2,8 @@
 {
     public class JWTokenVM
     {
-        public string Messages { get; set; }
-        public string Token { get; set; }
+        public int status { get; set; }
+        public string token { get; set; }
+        public string message { get; set; }
     }
 }

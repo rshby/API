@@ -16,10 +16,10 @@ namespace Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Auth([FromBody] LoginVM login)
+        public async Task<IActionResult> Auth(LoginVM login)
         {
             var jwtToken = await repository.Auth(login);
-            var token = jwtToken.Token;
+            var token = jwtToken.token;
 
             if (token == null)
             {
@@ -27,10 +27,8 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            //HttpContext.Session.SetString("Name", jwtHandler.GetName(token));
-            HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");
 
-            return RedirectToAction("index", "dashboard");
+            return RedirectToAction("index", "Admin");
         }
 
         public IActionResult Index()
